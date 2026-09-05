@@ -2,6 +2,10 @@
 
 Maqueta responsiva construida con HTML, CSS, JavaScript y Bootstrap 5.3.8.
 
+## Sitio web
+
+La aplicación se publica mediante GitHub Pages desde la rama `main`.
+
 ## Uso
 
 Abra `index.html` en un navegador con conexión a internet. La conexión se utiliza únicamente para cargar Bootstrap y Bootstrap Icons desde CDN.
