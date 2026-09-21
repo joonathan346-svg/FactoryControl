@@ -21,6 +21,7 @@
         <a class="nav-link" href="#produccion" data-view="produccion"><i class="bi bi-gear-wide-connected"></i><span>Producción</span></a>
         <a class="nav-link" href="#ventas" data-view="ventas"><i class="bi bi-receipt"></i><span>Ventas</span></a>
         <a class="nav-link" href="#caja" data-view="caja"><i class="bi bi-wallet2"></i><span>Caja</span></a>
+        <a class="nav-link" href="#tipo-cambio" data-view="tipo-cambio"><i class="bi bi-currency-exchange"></i><span>Tipo de cambio</span></a>
         <a class="nav-link" href="#reportes" data-view="reportes"><i class="bi bi-bar-chart-line"></i><span>Reportes</span></a>
         <a class="nav-link" href="#clientes" data-view="clientes"><i class="bi bi-people"></i><span>Clientes</span></a>
         <a class="nav-link" href="#empleados" data-view="empleados"><i class="bi bi-person-badge"></i><span>Empleados</span></a>
@@ -58,6 +59,136 @@
         <section class="view" id="ventas"><div class="section-heading"><div><h2>Ventas</h2><p>Genera notas y consulta operaciones.</p></div><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saleModal"><i class="bi bi-cart-plus"></i> Nueva venta</button></div><div class="row g-3"><div class="col-12 col-md-4"><article class="stat-card"><div class="stat-icon green"><i class="bi bi-currency-dollar"></i></div><div><span>Venta de hoy</span><strong>$18,640</strong><small>12 operaciones</small></div></article></div><div class="col-12 col-md-4"><article class="stat-card"><div class="stat-icon blue"><i class="bi bi-credit-card"></i></div><div><span>Por cobrar</span><strong>$9,320</strong><small>4 notas a crédito</small></div></article></div><div class="col-12 col-md-4"><article class="stat-card"><div class="stat-icon orange"><i class="bi bi-receipt-cutoff"></i></div><div><span>Ticket promedio</span><strong>$1,553</strong><small>Este día</small></div></article></div></div><article class="panel mt-3"><div class="panel-head"><div><h3>Ventas recientes</h3><p>Notas generadas automáticamente</p></div></div><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Folio</th><th>Cliente</th><th>Pago</th><th>Estado</th><th>Total</th></tr></thead><tbody><tr><td>V-1048</td><td>Ferretería Luna</td><td>Transferencia</td><td><span class="status success">Pagada</span></td><td>$4,860</td></tr><tr><td>V-1047</td><td>Público general</td><td>Efectivo</td><td><span class="status success">Pagada</span></td><td>$2,320</td></tr><tr><td>V-1046</td><td>Distribuidora Sol</td><td>Crédito</td><td><span class="status warning">Pendiente</span></td><td>$6,900</td></tr></tbody></table></div></article></section>
 
         <section class="view" id="caja"><div class="section-heading"><div><h2>Flujo de caja</h2><p>Consulta ingresos, egresos y saldo disponible.</p></div><button class="btn btn-primary"><i class="bi bi-scissors"></i> Realizar corte</button></div><div class="cash-balance"><div><span>Saldo disponible</span><strong>$94,680.00</strong><small>Actualizado hoy a las 13:10</small></div><i class="bi bi-wallet2"></i></div><article class="panel mt-3"><div class="panel-head"><div><h3>Movimientos</h3><p>El historial no puede editarse</p></div></div><div class="cash-row"><span class="movement in"><i class="bi bi-arrow-down-left"></i></span><p><strong>Venta #V-1048</strong><small>Ingreso · Transferencia</small></p><strong class="positive">+$4,860</strong></div><div class="cash-row"><span class="movement out"><i class="bi bi-arrow-up-right"></i></span><p><strong>Compra de material</strong><small>Egreso · Transferencia</small></p><strong class="negative">-$8,240</strong></div></article></section>
+
+        <section class="view" id="tipo-cambio">
+          <div class="section-heading">
+            <div>
+              <h2>Tipo de cambio</h2>
+              <p>Consulta tasas de referencia mediante la API REST de Frankfurter.</p>
+            </div>
+            <span class="api-badge"><i class="bi bi-cloud-check"></i> API externa</span>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-lg-5">
+              <article class="panel exchange-form-panel">
+                <div class="panel-head">
+                  <div>
+                    <h3>Consultar conversión</h3>
+                    <p>Selecciona las monedas y el importe.</p>
+                  </div>
+                </div>
+
+                <form id="exchangeForm" class="row g-3 mt-1">
+                  <div class="col-12">
+                    <label class="form-label" for="exchangeAmount">Importe</label>
+                    <div class="input-group">
+                      <span class="input-group-text">$</span>
+                      <input class="form-control" id="exchangeAmount" type="number" min="0.01" step="0.01" value="1000" required>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label" for="baseCurrency">Moneda de origen</label>
+                    <select class="form-select" id="baseCurrency" required>
+                      <option value="USD" selected>USD — Dólar estadounidense</option>
+                      <option value="MXN">MXN — Peso mexicano</option>
+                      <option value="EUR">EUR — Euro</option>
+                      <option value="CAD">CAD — Dólar canadiense</option>
+                      <option value="GBP">GBP — Libra esterlina</option>
+                      <option value="JPY">JPY — Yen japonés</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label" for="quoteCurrency">Moneda de destino</label>
+                    <select class="form-select" id="quoteCurrency" required>
+                      <option value="MXN" selected>MXN — Peso mexicano</option>
+                      <option value="USD">USD — Dólar estadounidense</option>
+                      <option value="EUR">EUR — Euro</option>
+                      <option value="CAD">CAD — Dólar canadiense</option>
+                      <option value="GBP">GBP — Libra esterlina</option>
+                      <option value="JPY">JPY — Yen japonés</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 d-flex gap-2">
+                    <button class="btn btn-primary flex-grow-1" id="exchangeSubmit" type="submit">
+                      <i class="bi bi-arrow-repeat"></i> Consultar API
+                    </button>
+                    <button class="btn btn-light" id="swapCurrencies" type="button" title="Intercambiar monedas">
+                      <i class="bi bi-arrow-left-right"></i>
+                    </button>
+                  </div>
+                </form>
+
+                <div class="exchange-note">
+                  <i class="bi bi-info-circle"></i>
+                  <span>La tasa es informativa y no modifica los movimientos de caja.</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-lg-7">
+              <article class="exchange-result" id="exchangeResult" aria-live="polite">
+                <div class="exchange-status" id="exchangeStatus">
+                  <span class="exchange-icon"><i class="bi bi-currency-exchange"></i></span>
+                  <div>
+                    <small>RESULTADO DE LA API</small>
+                    <h3 id="exchangePair">USD → MXN</h3>
+                  </div>
+                </div>
+
+                <div id="exchangeLoading" class="exchange-loading d-none">
+                  <div class="spinner-border spinner-border-sm" role="status"></div>
+                  <span>Consultando el servicio RESTful...</span>
+                </div>
+
+                <div id="exchangeError" class="alert alert-danger d-none" role="alert">
+                  <strong>No fue posible consultar la API.</strong>
+                  <span id="exchangeErrorMessage">Comprueba tu conexión e inténtalo nuevamente.</span>
+                  <button class="btn btn-sm btn-outline-danger mt-2" id="retryExchange" type="button">Reintentar</button>
+                </div>
+
+                <div id="exchangeData">
+                  <p class="converted-label">Importe convertido</p>
+                  <strong class="converted-value" id="convertedValue">—</strong>
+
+                  <div class="exchange-details">
+                    <div>
+                      <span>Tasa de referencia</span>
+                      <strong id="exchangeRate">—</strong>
+                    </div>
+                    <div>
+                      <span>Fecha de la tasa</span>
+                      <strong id="exchangeDate">—</strong>
+                    </div>
+                    <div>
+                      <span>Fuente</span>
+                      <strong>Frankfurter API</strong>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <article class="panel mt-3">
+            <div class="panel-head">
+              <div>
+                <h3>Datos recibidos dinámicamente</h3>
+                <p>Campos JSON utilizados por FactoryControl.</p>
+              </div>
+              <a href="https://frankfurter.dev/" target="_blank" rel="noopener">Documentación oficial <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+            <div class="api-fields">
+              <span><code>date</code> Fecha de referencia</span>
+              <span><code>base</code> Moneda de origen</span>
+              <span><code>quote</code> Moneda de destino</span>
+              <span><code>rate</code> Tasa de cambio</span>
+            </div>
+          </article>
+        </section>
 
         <section class="view" id="reportes"><div class="section-heading"><div><h2>Reportes</h2><p>Analiza resultados semanales y mensuales.</p></div><button class="btn btn-primary"><i class="bi bi-download"></i> Exportar reporte</button></div><div class="row g-3"><div class="col-12 col-lg-6"><article class="report-card"><i class="bi bi-graph-up-arrow"></i><div><h3>Reporte semanal</h3><p>Ventas, gastos y utilidad de los últimos 7 días.</p><button class="btn btn-outline-primary btn-sm">Consultar</button></div></article></div><div class="col-12 col-lg-6"><article class="report-card"><i class="bi bi-calendar3"></i><div><h3>Reporte mensual</h3><p>Resumen consolidado y comparación con el mes anterior.</p><button class="btn btn-outline-primary btn-sm">Consultar</button></div></article></div></div></section>
 
